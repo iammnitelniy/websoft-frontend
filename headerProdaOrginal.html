@@ -1,0 +1,934 @@
+<!-- Радио Ваня, Шоколад, монте карло-->
+<% 
+ curUserDoc=OpenDoc(UrlFromDocID(curUserID));
+ curUserName=curUserDoc.TopElem.lastname;
+    curUserFam=curUserDoc.TopElem.firstname;
+ curUserM=curUserDoc.TopElem.middlename;
+ curUserShort=curUserName + " " +
+    StrLeftCharRange (curUserFam, 1) + "." + StrLeftCharRange (curUserM, 1) + "." ;
+    curUserIMG=(curUserDoc.TopElem.pict_url.HasValue? curUserDoc.TopElem.pict_url : "/pics/nophoto.jpg" ); %>
+    <% tools_web.insert_custom_code( 5799918387404359878, null, true, false, 0, null,false ) 
+	roznica = curUserDoc.TopElem.org_name;
+    org = XQuery("for $elem in collaborators where $elem/id= "+ curUserID +" return $elem");
+    %>
+
+
+    <style>
+
+        header {
+            /* height: 110px!important; */
+            position: relative !important;
+            top: -64px !important;
+            margin-bottom: -10px !important;
+        }
+
+        #search {
+            visibility: hidden;
+
+        }
+
+        .clearfix:after,
+        .clearfix:before {
+            content: '';
+            display: table
+        }
+
+        .clearfix:after {
+            clear: both;
+            display: block
+        }
+
+        .content-column ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .content-column a,
+        a:hover,
+        a.active,
+        a:active,
+        a:visited,
+        a:focus {
+            /* ОБУЧЕНИЕ, НАШИ ПРОЕКТЫ и О НАС !DROPDOWN! */
+            color: #42536a;
+            text-decoration: noneimportant;
+            /* font-weight:bold;  */
+            font-weight: 400;
+            /* font-size: 16px;  */
+            white-space: nowrap;
+        }
+
+        .description li a:hover,
+        .stander li a:hover,
+        .icon-des li a:hover {
+            color: #e10e36 !important;
+            text-decoration: none !important;
+        }
+
+        .exo-menu {
+            width: 100%;
+            float: left;
+            list-style: none;
+            position: relative;
+            background: #ffffff;
+            border-top: 1px solid #dfdfe3;
+            border-bottom: 1px solid #dfdfe3;
+        }
+
+        .exo-menu li img {
+            width: 200px;
+            margin-top: 7px;
+        }
+
+        .exo-menu>li {
+            display: block;
+            float: left;
+            /*   border: 1px solid rebeccapurple; */
+        }
+
+        .exo-menu>li>a {
+            /* ОСНОВНОЙ БЛОК МЕНЮ */
+            color: #42536a;
+            text-decoration: none;
+            font-family: 'Fira Sans', sans-serif;
+            font-weight: 500;
+            font-size: 1.25em;
+            -webkit-transition: color 0.2s linear, background 0.9s linear;
+            -moz-transition: color 0.2s linear, background 0.9s linear;
+            -o-transition: color 0.2s linear, background 0.9s linear;
+            transition: color 0.2s linear, background 0.9s linear;
+            */
+        }
+
+        .exo-menu>li>a.active,
+        .exo-menu>li>a:hover,
+        li.drop-down ul>li>a:hover {
+            border-bottom: 2px solid #e10e36;
+            color: #e10e36;
+        }
+
+        li.lk ul>li>a:hover {
+/*             border-bottom: none !important; */
+            color: #e10e36 !important;
+        }
+
+        .exo-menu i {
+            float: left;
+            font-size: 13px;
+            /* стрелки(вынос основного меню) */
+            /* font-family: 'Fira-Sans' !important; */
+            margin-right: 6px;
+            margin-top: 4px;
+            margin-left: 3px;
+            line-height: 20px !important;
+        }
+
+        li.drop-down,
+        li.drop-down-lk,
+        .flyout-right,
+        .flyout-left {
+            position: relative;
+        }
+
+        li.drop-down:before {
+            content: "\f103";
+            color: #fff;
+            font-family: FontAwesome;
+            font-style: normal;
+            display: inline;
+            position: absolute;
+            right: 6px;
+            top: 20px;
+            font-size: 14px;
+
+        }
+
+        .lk.drop-down>ul {
+            left: -44px !important;
+            min-width: 230px !important;
+            top: 60px !important;
+
+        }
+
+        li.drop-down>ul {
+            left: 0px;
+            min-width: 230px;
+        }
+
+        li.drop-down-lk>ul {
+            left: -164px;
+            min-width: 230px;
+            top: 60px;
+
+        }
+
+        .drop-down-ul {
+            display: none;
+        }
+
+        .flyout-right>ul,
+        .flyout-left>ul {
+            top: 0;
+            min-width: 230px;
+            display: none;
+            border-left: 1px solid #365670;
+        }
+
+        li.drop-down>ul>li>a,
+        li.drop-down-lk>ul>li>a,
+        .flyout-right ul>li>a,
+        .flyout-left ul>li>a {
+            color: #42536a;
+            /* ЛК, О НАС, НАШИ ПРОЕКТЫ*/
+            display: block;
+            padding: 20px 22px;
+            text-decoration: none;
+            background-color: #ffffff;
+            border-bottom: 1px dotted #547787;
+            /* 	-webkit-transition: color 0.2s linear, background 0.2s linear;
+	-moz-transition: color 0.2s linear, background 0.2s linear;
+	-o-transition: color 0.2s linear, background 0.2s linear;
+	transition: color 0.2s linear, background 0.2s linear; */
+        }
+
+        .flyout-right ul>li>a,
+        .flyout-left ul>li>a {
+            border-bottom: 1px dotted #B8C7BC;
+        }
+
+
+        /*Flyout Mega*/
+        .flyout-mega-wrap {
+            top: 0;
+            right: 0;
+            left: 100%;
+            width: 100%;
+            display: none;
+            height: 100%;
+            padding: 15px;
+            min-width: 742px;
+
+        }
+
+        h4.row.mega-title {
+            color: #1d2023 !important;
+            margin-top: 0px;
+            font-size: 14px;
+            padding-left: 15px;
+            padding-bottom: 13px;
+            text-transform: uppercase;
+            font-weight: 600;
+            background-color: #ffffff !important;
+        }
+
+        .flyout-mega ul>li>a {
+            font-size: 90%;
+            line-height: 25px;
+            color: #fff;
+            font-family: inherit;
+        }
+
+        .flyout-mega ul>li>a:hover,
+        .flyout-mega ul>li>a:active,
+        .flyout-mega ul>li>a:focus {
+            text-decoration: none;
+            background-color: transparent !important;
+            color: #ccc !important
+        }
+
+        /*mega menu*/
+
+        .mega-menu {
+            left: 0;
+            right: 0;
+            padding: 15px;
+            display: none;
+            padding-top: 0;
+            min-height: 100%;
+
+        }
+
+        h4.row.mega-title {
+            color: #eee;
+            margin-top: 0px;
+            font-size: 14px;
+            padding-left: 0px;
+            padding-bottom: 13px;
+            text-transform: uppercase;
+            //border-top: 1px solid #ddd;
+            padding-top: 15px;
+            background-color: #365670
+        }
+
+        .mega-menu ul li a {
+            /* основной обучения (dropdown)*/
+            line-height: 25px;
+            font-size: 16px;
+            display: block;
+
+        }
+
+        ul.stander li a {
+            padding: 3px 0px;
+        }
+
+        ul.description li {
+            /* отступ между разделами в dropdown */
+            padding-bottom: 12px;
+            line-height: 14px;
+        }
+
+        ul.description li span {
+            /* Подписи во вкладке обучение */
+            text-decoration-color: red;
+            color: #ccc;
+            font-size: 13px;
+        }
+
+        a.view-more {
+            border-radius: 1px;
+            margin-top: 15px;
+            background-color: #009FE1;
+            padding: 2px 10px !important;
+            line-height: 21px !important;
+            display: inline-block !important;
+        }
+
+        a.view-more:hover {
+            color: #fff;
+            background: #0DADEF;
+        }
+
+        ul.icon-des li a i {
+            color: #fff;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            text-align: center;
+            background-color: #009FE1;
+            line-height: 35px !important;
+        }
+
+        ul.icon-des li {
+            width: 100%;
+            display: table;
+            margin-bottom: 11px;
+        }
+
+        /*Blog DropDown*/
+        .Blog {
+            left: 0;
+            display: none;
+            color: #fefefe;
+            padding-top: 15px;
+            background: #547787;
+            padding-bottom: 15px;
+        }
+
+        .Blog .blog-title {
+            color: #fff;
+            font-size: 15px;
+            text-transform: uppercase;
+
+        }
+
+        .Blog .blog-des {
+            color: #ccc;
+            font-size: 90%;
+            margin-top: 15px;
+        }
+
+        .Blog a.view-more {
+            margin-top: 0px;
+        }
+
+        /*Images*/
+        .Images {
+            left: 0;
+            width: 100%;
+            display: none;
+            color: #fefefe;
+            padding-top: 15px;
+            background: #547787;
+            padding-bottom: 15px;
+        }
+
+        .Images h4 {
+            font-size: 15px;
+            margin-top: 0px;
+            text-transform: uppercase;
+        }
+
+        /*common*/
+        .flyout-right ul>li>a,
+        .flyout-left ul>li>a,
+        .flyout-mega-wrap,
+        .mega-menu {
+            background-color: #ffffff;
+        }
+
+        /*hover*/
+        .Blog:hover,
+        .Images:hover,
+        .mega-menu:hover,
+        .drop-down-ul:hover,
+        li.flyout-left>ul:hover,
+        li.flyout-right>ul:hover,
+        .flyout-mega-wrap:hover,
+        li.flyout-left a:hover+ul,
+        li.flyout-right a:hover+ul,
+        .blog-drop-down>a:hover+.Blog,
+        li.drop-down>a:hover+.drop-down-ul,
+        .images-drop-down>a:hover+.Images,
+        .mega-drop-down a:hover+.mega-menu,
+        li.flyout-mega>a:hover+.flyout-mega-wrap {
+            display: block;
+        }
+
+        /*responsive*/
+        @media (min-width:767px) {
+            .exo-menu>li>a {
+                display: block;
+                padding: 20px 22px;
+            }
+
+            .mega-menu,
+            .flyout-mega-wrap,
+            .Images,
+            .Blog,
+            .flyout-right>ul,
+            .flyout-left>ul,
+            li.drop-down>ul {
+                position: absolute;
+            }
+
+            .flyout-right>ul {
+                left: 100%;
+            }
+
+            .flyout-left>ul {
+                right: 100%;
+            }
+        }
+
+        @media (max-width:767px) {
+
+            .exo-menu {
+                min-height: 58px;
+                background-color: #23364B;
+                width: 100%;
+            }
+
+            .exo-menu>li>a {
+                width: 100%;
+                display: none;
+
+            }
+
+            .exo-menu>li {
+                width: 100%;
+            }
+
+            .display.exo-menu>li>a {
+                display: block;
+                padding: 20px 22px;
+            }
+
+            .mega-menu,
+            .Images,
+            .Blog,
+            .flyout-right>ul,
+            .flyout-left>ul,
+            li.drop-down>ul {
+                position: relative;
+            }
+
+        }
+
+        a.toggle-menu {
+            position: absolute;
+            right: 0px;
+            padding: 20px;
+            font-size: 27px;
+            background-color: #ccc;
+            color: #23364B;
+            top: 0px;
+            display: none;
+        }
+
+        .mega-menu-wrap {
+            //margin-left: 265px;
+        }
+
+
+
+
+
+
+        input[type=button],
+        input[type=submit],
+        button,
+        a.button {
+            margin: 0px 0;
+        }
+
+        .container-4 {
+            overflow: hidden;
+            width: 160px;
+            vertical-align: middle;
+            white-space: nowrap;
+            height: 32px;
+            margin-top: 17px;
+        }
+
+        .container-4 input#search {
+            width: 160px;
+            height: 32px;
+            background: #fcfcfc;
+            border: none;
+            font-size: 10pt;
+            float: left;
+            color: black;
+            padding-left: 15px;
+            border: 1px solid #8080803b;
+        }
+
+
+        .container-4 input#search::-webkit-input-placeholder {
+            color: #65737e;
+        }
+
+        .container-4 input#search:-moz-placeholder {
+            /* Firefox 18- */
+            color: #65737e;
+        }
+
+        .container-4 input#search::-moz-placeholder {
+            /* Firefox 19+ */
+            color: #65737e;
+        }
+
+        .container-4 input#search:-ms-input-placeholder {
+            color: #65737e;
+        }
+
+        .container-4 button.icon {
+            -webkit-border-top-right-radius: 5px;
+            -webkit-border-bottom-right-radius: 0;
+            -moz-border-radius-topright: 5px;
+            -moz-border-radius-bottomright: 0;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 0;
+
+            border: none;
+            background: #e10e36;
+            height: 50px;
+            color: #ffffff;
+            opacity: 1;
+            font-size: 10pt;
+            margin-left: -53px;
+
+            -webkit-transition: all .55s ease;
+            -moz-transition: all .55s ease;
+            -ms-transition: all .55s ease;
+            -o-transition: all .55s ease;
+            transition: all .55s ease;
+
+        }
+
+
+        #search:active,
+        #search:focus {
+            background: #e8e8e8 !important;
+        }
+
+
+
+        .container-4:hover button.icon:hover {
+            background: #e10e36b8;
+        }
+
+
+
+        /* input[type=text]::-ms-clear {  display: none; width : 0; height: 0; }
+input[type=text]::-ms-reveal {  display: none; width : 0; height: 0; }
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration { display: none; } */
+
+        .content-column {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            color: #fff;
+			font-family: 'Fira Sans', sans-serif!important;
+        }
+
+        .circle {
+            width: 30px;
+            /* задаете свои размеры */
+            height: 30px;
+            border-radius: 50%;
+            /* не забываем о кроссбраузерности */
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            -khtml-border-radius: 50%;
+        }
+
+        .circle img {
+            display: block;
+            width: 30px !important;
+            height: 30px !important;
+            border-radius: 50%;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+        }
+
+        < !-- LPE -->.wt-lp-macro-workarea {
+            padding: 0 !important;
+            width: 100% !important;
+        }
+
+        .dr_menu {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            border-top: 1px solid #ddd;
+        }
+
+         #timer {
+            font-family: 'fira sans';
+            font-size: 15pt;
+        } 
+		#rad_logo {
+			display:none!important;
+		}
+		@media screen and (max-width: 1300px) {
+    .searchout {
+    margin-left: -20px; }
+	}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.3/animate.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
+    <!-- <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'> -->
+<!--     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500&display=swap" rel="stylesheet"> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js"
+        integrity="sha512-naukR7I+Nk6gp7p5TMA4ycgfxaZBJ7MO5iC3Fp6ySQyKFHOGfpkSZkYVWV5R7u7cfAicxanwYQ5D1e17EfJcMA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    <div class="collapse" id="navbarToggleExternalContent">
+        <div class="bg-dark p-4">
+        </div>
+    </div>
+
+
+    </head>
+    <div class="content-column">
+		<div id="radiobells_container"><a href="https://www.radiobells.com/" rel="nofollow" id="RP_link">Онлайн радио</a> 
+        </div><link href="https://www.radiobells.com/script/style.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript">var rad_backcolor="#ffffff"; var rad_logo = 'sss'; var rad_autoplay = false; var rad_width = "responsive"; var rad_width_px = 330;var rad_stations =[['https://ep256.hostingradio.ru:8052/europaplus256.mp3','Европа плюс','europaplus'],['https://radiorecord.hostingradio.ru/rr_main96.aacp','Радио Рекорд','radiorecord'],['https://nashe1.hostingradio.ru/nashe-256','Наше радио','nashe'],['https://pub0101.101.ru/stream/air/aac/64/100','Авторадио','avtoradio'],['https://pub0202.101.ru:8443/stream/air/aac/64/99','Радио Energy','nrj'],['https://link.smmbox.ru/http://online.kissfm.ua/KissFM_HD','Kiss FM','kissfm'],['https://radio-dedic-7183.dline-media.com/stream','Радио Рандеву','randevu'],['https://pub0302.101.ru:8443/stream/air/aac/64/202','Comedy Radio','comediradio'],['https://icecast-vgtrk.cdnvideo.ru/mayakfm_mp3_128kbps','Радио Маяк','mayak'],['https://ru1.amgradio.ru/RuWave48','Русская Волна','ruwave'],['https://choco.hostingradio.ru:10010/fm','Радио Шоколад','chocolate'],['https://hitfm.hostingradio.ru/hitfm96.aacp','Хит FM','hitfm'],['https://rusradio.hostingradio.ru/rusradio96.aacp','Русское радио','russradio'],['https://link1.rbtrack.ru/http://icecast-radiovanya.cdnvideo.ru/radiovanya','Радио Ваня','vanya']];</script><script type="text/javascript" src="https://www.radiobells.com/script/v2_1.js" charset="UTF-8"></script>
+
+
+        <ul class="exo-menu">
+
+            <li style="margin-left: 20px; margin-top:4px;" class=""><img style="cursor: pointer" id="new_logo"
+                    src="/download_file.html?file_id=7313927357262595663" /></li>
+            <li class="mega-drop-down searchout" style="margin-left: 25px;"><a style="color: #44546a"> Обучение <i
+                        style="float: right!important; padding-left: 3px; width: 8px"
+                        class="fa-solid fa-sort-down"></i></a>
+                <div class="animated fadeIn mega-menu">
+                    <div class="mega-menu-wrap">
+                        <div class="row dr_menu">
+                            <div class="col-md-3">
+                                <h4 class="row mega-title"></h4>
+                                <ul class="description">
+                                    <%
+                                    app = XQuery("for $elem in group_collaborators where $elem/collaborator_id = " + curUserID + " and $elem/group_id = 0x64AD375924B80C3F return $elem"); 
+                                    orgname = OpenDoc(UrlFromDocID(curUserID)).TopElem.custom_elems.ObtainChildByKey('posoffice').value;
+                                     %>
+<% if (ArrayCount(app) !== 0) { 
+for (elem in app) {
+%>
+<li ><a id="stat" href="/_wt/system_learning_office">Система обучения Офиса</a>
+<span>Программы, матрица обучения,<br>структура сайта</span>
+</li>
+ <li><a href="/_wt/system_learning">Система обучения Розницы</a>
+<span>Программы, матрица обучения,<br>структура сайта</span>
+</li>
+<% 
+}
+}
+%>
+<%
+if (ArrayCount(app) <= 0) {
+    if (orgname == "true") {
+    for (ev in org) {
+    
+               %>
+        <li ><a id="stat" href="/_wt/system_learning_office">Система обучения Офиса</a>
+            <span>Программы, матрица обучения,<br>структура сайта</span>
+        </li>
+        <%
+    }
+    %>
+    <%
+    } else if (orgname !== "true"){
+        for (ev in org) {
+        %>
+        <li><a href="/_wt/system_learning">Система обучения Розницы</a>
+            <span>Программы, матрица обучения,<br>структура сайта</span>
+        </li>
+    <%
+        }
+    }
+}
+    %>
+
+                                            <li ><a id="stat" href="/_wt/effective_leader">Эффективный руководитель</a>
+						<span>Разбор основных аспектов <br>работы руководителя</span>
+                                            </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-3">
+                                <h4 class="row mega-title"></h4>
+                                <ul class="description">
+                                    <li><a href="/_wt/courses_by_category">Курсы по категориям</a>
+                                        <span>НКО, по препаратам, для ЗАВ, приемка и т.д.</span>
+                                    </li>
+                                    <li><a href="/_wt/c_adaptation">Курсы адаптации</a>
+                                        <span>Прохождение согласно матрицы обучения</span>
+                                    </li>
+                                    <li><a href="/_wt/tnd_1_3_std_20203">Курсы по развитию компетенций</a>
+                                        <span>Управленческие навыки, <br>Личная эффективность, и т.д.</span>
+                                    </li>
+                                    <li><a href="/_wt/all_courses">Найти курс</a>
+                                        <span>Поиск по названию/описанию</span>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                            <div class="col-md-3">
+                                <h4 class="row mega-title"></h4>
+                                <ul class="description">
+                                    <li><a href="/_wt/cycle_nko">Цикл курсов НКО</a>
+                                        <span>Памятки, тренажеры и задания <br>для прохождения после вебинаров</span>
+                                    </li>
+                                    <li><a href="/_wt/tnd_2_std_20203">Календарь вебинаров</a>
+                                        <span>Запись на мероприятия</span>
+                                    </li>
+                                    <li><a href="/_wt/partner_courses">Обучение от партнеров</a>
+                                        <span>Ежемесячные курсы и IQ Provision</span>
+                                    </li>
+                                    <li><a href="/_wt/useful1">Сопровождающие материалы</a>
+                                        <span>Инструкции, памятки</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-3">
+                                <h4 class="row mega-title"></h4>
+                                <ul class="description">
+                                    <li><a href="/_wt/maks_trainee">Кабинет Cтажера</a>
+                                        <span>Опросы после наставничества</span>
+                                    </li>
+                                    <li><a href="/_wt/MO">Кабинет Тренера</a>
+                                        <span>Тренинги и вебинары</span>
+                                    </li>
+                                    <li><a href="/_wt/tnd_5_std_20203">Кабинет Наставника</a>
+                                        <span>Документы, план стажировки</span>
+                                    </li>
+                                    <li><a href="/_wt/trainers">Найти тренера</a>
+                                        <span>ФИО, ЗО, контакты</span>
+                                    </li>
+                                    <li>
+                                        <!--<a class="view-more btn btn-sm " href="#">View more</a>-->
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="searchout"><a href="/_wt/libSearch"> База знаний</a></li>
+            <li class="drop-down searchout"><a style="color: #44546a"> Проекты <i
+                        style="float: right!important; padding-left: 3px; width: 8px"
+                        class="fa-solid fa-sort-down"></i></a>
+
+                <ul class="drop-down-ul animated fadeIn">
+
+                    <li class=""><a href="/_wt/adaptation">Адаптация УК Максавит</a> <!-- class flyout-left -->
+                        <!--<ul class="animated fadeIn">
+						<li><a href="#">Mobile</a></li>
+						<li><a href="#">Computer</a></li>
+						<li><a href="#">Watch</a></li>
+					</ul>-->
+                    </li>
+                    <li><a href="/_wt/career_to_the_max">Карьера на Максимум</a></li>
+                    <li class=""><a href="/_wt/marking">Маркировка</a> <!-- class flyout-right -->
+                        <!--<ul class="animated fadeIn">
+						<li><a href="#">Mobile</a></li>
+						<li><a href="#">Computer</a></li>
+						<li><a href="#">Watch</a></li>
+					</ul>-->
+                    </li>
+                    <li><a href="/_wt/tutorship">Наставничество</a></li>
+                    <li><a href="/_wt/nmo">НМО</a></li>
+                    <li><a href="/_wt/maks_comp">Развитие компетенций</a></li>
+                </ul>
+
+
+            </li>
+
+
+            <li class="drop-down searchout"><a style="color: #44546a"> О нас <i
+                        style="float: right!important; padding-left: 3px; width: 8px"
+                        class="fa-solid fa-sort-down"></i></a>
+
+                <ul class="drop-down-ul animated fadeIn">
+                    <li><a href="https://maksavit.bitrix24.ru/company/">Адресная книга</a></li>
+                    <li><a href="/_wt/maks_vacancy">Вакансии</a></li>
+                    <li><a href="/_wt/new_office">Новый офис</a></li>
+                    <li class=""><a href="/_wt/O_nas_comp">О компании</a> <!-- class flyout-right -->
+                    </li>
+
+                </ul>
+
+            <li class="drop-down searchout"><a style="color: #44546a">Нужна помощь?<i
+                        style="float: right!important; padding-left: 3px; width: 8px"
+                        class="fa-solid fa-sort-down"></i></a>
+
+                <ul class="drop-down-ul animated fadeIn">
+
+                    <li><a href="/_wt/gloss">Глоссарий</a></li>
+                    <li><a href="/_wt/kedo">КЭДО</a></li>
+                    <!-- <li><a href="/pplayer2/6857395340983020834/poll">Проблем.Нет</a></li> -->
+                    <li><a href="/_wt/maks_it">Технические вопросы</a></li>
+                    <li><a href="/_wt/sbis_educ">Работа в системе СБИС</a></li>
+                    <li><a href="/_wt/dashboard_sales">Дашборд</a></li>
+
+
+                </ul>
+
+
+            </li>
+
+
+
+            </li>
+            <li style="float: right;" class="drop-down lk"><a style="border-bottom: none!important; margin-top: -3px"
+                    href="/cabinet">
+                    <div style="display: flex; flex-direction: row;">
+                        <div class="circle"><img style="margin-left:-5px; margin-top: 0px!important;"
+                                src="<%=curUserIMG %>" /></div> <span id="cabinet_href" style="margin-top: 4px;">
+                            <%=curUserShort%>
+                        </span> <i style="float: right!important; padding-left: 3px; width: 8px; padding-top: 4px"
+                            class="fa-solid fa-sort-down"></i>
+                    </div>
+                </a>
+                <ul class="drop-down-ul animated fadeIn">
+                    <li class=""><a href="/cabinet">Личный кабинет</a> <!-- class flyout-right -->
+                    </li>
+                    <li class=""><a href="/_wt/maks_education">Назначенные курсы</a> <!-- class flyout-left -->
+                    </li>
+                    <li><a href="/_wt/adapt_my">Моя адаптация</a></li>
+ <!--                   <li class=""><a href=""><%=tools_web.insert_custom_code(5799918387404359878, null, true, false, 0, null, true )%> Выход</a> -->
+                    <!--<li><a href="#">Выход</a></li>-->
+                </ul>
+            </li>
+            <li style="float: right;">
+                <div class="box">
+                    <div class="container-4">
+                        <input type="search" id="search" placeholder="Поиск..." />
+                        <!--  <button class="icon" id="btn_search"><i style="margin-top: -60px!important" class="fa fa-search"></i></button> -->
+                        <button class="icon" id="btn_search"><i style="margin-bottom: 15px!important"
+                                class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </li>
+            <a href="#" class="toggle-menu visible-xs-block">|||</a>
+        </ul>
+
+
+    </div>
+    <script>
+
+
+
+        $(function () {
+            $('.toggle-menu').click(function () {
+                $('.exo-menu').toggleClass('display');
+
+            });
+
+        });
+
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#search').keydown(function (e) {
+                if (e.keyCode === 13) {
+                    goTo();
+                }
+            });
+        });
+        var btn_search = document.getElementById('btn_search');
+        var goTo = function () {
+            var words = document.getElementById("search").value;
+            var replaced_words = words.split(' ').join('+');
+            console.log(words.innerHTML);
+            var search_string = "/search?mode=search_portal&sid=&document_id=&word=" + replaced_words;
+            location.href = search_string;
+        }
+        //btn_search.onclick = goTo;
+
+
+        function hide(elem) {
+            elem.style.display = 'none';
+            var se_block = document.querySelector(".container-4");
+            var se = document.querySelector("#search");
+            se_block.style.width = (document.querySelector("ul.exo-menu").offsetWidth - 550) + "px";
+            se.style.width = (document.querySelector("ul.exo-menu").offsetWidth - 550) + "px";
+            document.querySelector("#search").focus();
+        }
+        var se_block2 = document.querySelector(".container-4");
+        se_block2.style.width = "46px";
+
+        var se2 = document.querySelector("#search");
+        se2.style.width = "50px";
+        function show(elem) {
+            elem.style.display = 'block';
+            var se_block = document.querySelector(".container-4");
+            var se = document.querySelector("#search");
+            se_block.style.width = "90%";
+            se.style.width = "50px";
+        }
+
+        $('#btn_search').on('focus', function () {
+            console.log('Кнопка нажата');
+
+            document.querySelector("#search").style.visibility = "visible";
+            var is_focus = Array.from(document.querySelectorAll(".searchout"));
+            for (var i = 0; i < is_focus.length; i++) {
+                hide(is_focus[i]);
+            }
+        });
+        $('#search').on('focusout', function () {
+            console.log('Кнопка не нажата');
+            var is_focus = Array.from(document.querySelectorAll(".searchout"));
+            for (var i = 0; i < is_focus.length; i++) {
+                show(is_focus[i]);
+            }
+            document.querySelector("#search").style.visibility = "hidden";
+        });
+        $('#new_logo').on('click', function () {
+            window.location.href = '/home';
+        });
+
+    </script>
