@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Подключение jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script><!-- подключение библиотеки для эффектов кнопок -->
+    <script src="titleJquery.js"></script>
+    <script src="chat-bot.js"></script> <!-- Основной скрипт бота -->
+   
+    <script async>
+        
+        (async function() {
+            
+        document.addEventListener("DOMContentLoaded", function () {
+            var linkElement = document.querySelector("a.cont2");
+            linkElement.addEventListener("click", function (event) {
+                event.preventDefault();
+                location.reload();
+            });
+        });
+
+        let buttonCCount = 0;
+        let botMessageCount = 0;
+        const deleteLimit = 10;
+        function removeElements() {
+            const buttonCs = document.querySelectorAll('.butt_c');
+            const botMessages = document.querySelectorAll('.bot_mess');
+            for (let i = 0; i < 5; i++) {
+                if (buttonCs[i]) {
+                    buttonCs[i].remove();
+                }
+                if (botMessages[i]) {
+                    botMessages[i].remove();
+                }
+            }
+        }
+        const targetNode = document.body;
+        const config = { childList: true, subtree: true };
+        const callback = function (mutationsList, observer) {
+            for (const mutation of mutationsList) {
+                if (mutation.type === 'childList') {
+                    const addedNodes = Array.from(mutation.addedNodes);
+                    for (const node of addedNodes) {
+                        if (node.classList.contains('butt_c')) {
+                            buttonCCount++;
+                        }
+                        if (node.classList.contains('bot_mess')) {
+                            botMessageCount++;
+                        }
+                    }
+                    if (buttonCCount >= deleteLimit || botMessageCount >= deleteLimit) {
+                        removeElements();
+                        buttonCCount = 0;
+                        botMessageCount = 0;
+                    }
+                }
+            }
+        };
+        const observer = new MutationObserver(callback);
+        observer.observe(targetNode, config);
+
+    })();
+        </script>
+    <link rel="stylesheet" href="/Portal/app_bot/style.css"> <!-- Стили бота -->
+</head>
+<header class="head_info">
+    <div class="img_cont" style="display: flex;">
+        <img class="avatar" src="https://uc.maksavit.ru/Portal/app_bot/gif_bot.gif" alt=""> <!-- Аватар бота -->
+    <span class="name"><img class="im" src="https://uc.maksavit.ru/Portal/app_bot/bot.png" alt=""></span> <!-- Имя бота -->
+        </div>
+        <div class="links_cont"> <!-- Кнопки домой,обновить,гандивы -->
+    <a href="/home" target="_blank" class="cont"> 
+        <div class="but_hover home">Главная страница</div>
+    </a>
+<a href="" class="cont2">
+        <div class="but_hover cont3 refr">Обновить бота</div>
+
+          </a>
+    <a href="https://gandiva.maksavit.ru/Request/New?DepartmentId=24&CategoryId=114&RequestTypeId=309&JobTypeId=602" target="_blank" class="cont3">
+        <div class="but_hover gandiva">Возникла проблема</div>
+    </a></div>
+</header>
+<body>
+    <!-- Фон -->
+        <div id="chat_back" style="position: relative; overflow: hidden;background-color: #fff; background-image: url(https://uc.maksavit.ru/Portal/app_bot/back6.png);background-size: cover;background-position: center; background-position: 44% 32px;">
+        <div id="chat_mess" style="margin-top:65px"></div>
+    </div>
+   
+            <div class="course"><a href="https://uc.maksavit.ru/_wt/<%=ev%>" target="_blank"> 
+                    &#8729; 
+                </a></div>
+            
+                    <div class="temp"> 
+                       
+                    </div>
+                   
+                                <div id="statuseduc1" class="status1" ;><a href="/_wt/6980306191304692407" id="testy1"
+                                        target="_blank">&#8729; Опрос для нового сотрудника - 1 неделя</a></div>
+                                <div id="onem" style="display:none">
+                                   
+                                </div>
+
+                                            <div id="statuseduc2" class="status2" ;><a href="/_wt/6980312522163505551"
+                                                    id="testy2" target="_blank">&#8729; Опрос для нового сотрудника - 1 месяц</a></div>
+                                            <div id="twom" style="display:none">
+                                               
+                                            </div>
+                                         
+                                                        <div id="statuseduc3" class="status3" ;><a
+                                                                href="/_wt/6980316400722014474" id="testy3"
+                                                                target="_blank">&#8729; Опрос после прохождения адаптации - 3 месяца</a></div>
+                                                        <div id="threem" style="display:none">
+                                                         
+                                                        </div>
+                                                       
+                                                       
+</body>
+</html>
