@@ -1,0 +1,388 @@
+<%
+try {
+//id тестов
+	var srez_welcome = 6710086845611250853;
+	var ekz_perv = 6724168320872757241;
+	var ekz_zav = 6724157406898226522;
+
+// id наборов программ
+	var education_all = 6981020366237948508;
+	var education_specialist = 6981022594526872618;
+	var education_manager_nach_sr = 6981023432882727667;
+	var education_manager_top = 6981024382264438620;
+	var education_rga = 7012569393131044422;
+	
+
+	var education_ot = 6870469080608423070;
+	var education_perv = 6869692413472222251;
+	var education_zav = 6869688917430311327;
+
+	//формируем массив учебных программ для ОТ, к которым привязан определённый курс
+	var courses_ot = OpenDoc(UrlFromDocID(education_ot)).TopElem;
+	var courses_hex_id_ot = courses_ot.education_methods;
+	var learning_program_ot_array = new Array();
+	
+	//формируем массив курсов общего назначения, которые привязаны к учебным программам
+	for (hex_id in courses_hex_id_ot) {
+		 _program_course = OpenDoc(UrlFromDocID(hex_id.education_method_id)).TopElem;
+		course = _program_course.course_id;
+		learning_program_ot_array.push(course);
+	}
+
+
+
+	//формируем массив учебных программ для ОТ, к которым привязан определённый курс
+	var courses_perv = OpenDoc(UrlFromDocID(education_perv)).TopElem;
+	var courses_hex_id_perv = courses_perv.education_methods;
+	var learning_program_perv_array = new Array();
+	
+	//формируем массив курсов общего назначения, которые привязаны к учебным программам
+	for (hex_id in courses_hex_id_perv) {
+		 _program_course = OpenDoc(UrlFromDocID(hex_id.education_method_id)).TopElem;
+		course = _program_course.course_id;
+		learning_program_perv_array.push(course);
+	}
+
+
+
+	//формируем массив учебных программ для ОТ, к которым привязан определённый курс
+	var courses_zav = OpenDoc(UrlFromDocID(education_zav)).TopElem;
+	var courses_hex_id_zav = courses_zav.education_methods;
+	var learning_program_zav_array = new Array();
+	
+	//формируем массив курсов общего назначения, которые привязаны к учебным программам
+	for (hex_id in courses_hex_id_zav) {
+		 _program_course = OpenDoc(UrlFromDocID(hex_id.education_method_id)).TopElem;
+		course = _program_course.course_id;
+		learning_program_zav_array.push(course);
+	}
+
+	
+	
+
+
+	//формируем массив учебных программ общего назначения, к которым привязан определённый курс
+	var courses = OpenDoc(UrlFromDocID(education_all)).TopElem;
+	var courses_hex_id = courses.education_methods;
+	var learning_program_all_array = new Array();
+	
+	//формируем массив курсов общего назначения, которые привязаны к учебным программам
+	for (hex_id in courses_hex_id) {
+		 _program_course = OpenDoc(UrlFromDocID(hex_id.education_method_id)).TopElem;
+		course = _program_course.course_id;
+		learning_program_all_array.push(course);
+	}
+
+
+	//формируем массив учебных программ для специалистов, к которым привязан определённый курс
+	var courses_spec = OpenDoc(UrlFromDocID(education_specialist)).TopElem;
+	var courses_hex_id_spec = courses_spec.education_methods;
+	var learning_program_specialist_array = new Array();
+	
+	//формируем массив курсов для специалистов, которые привязаны к учебным программам
+	for (hex_id_spec in courses_hex_id_spec) {
+		 _program_course_spec = OpenDoc(UrlFromDocID(hex_id_spec.education_method_id)).TopElem;
+		course_spec = _program_course_spec.course_id;
+		learning_program_specialist_array.push(course_spec);
+	}
+
+
+	//формируем массив учебных программ для менеджеров среднего и начального звена, к которым привязан определённый курс
+	var courses_nsr = OpenDoc(UrlFromDocID(education_manager_nach_sr)).TopElem;
+	var courses_hex_id_nsr = courses_nsr.education_methods;
+	var learning_program_nsr_array = new Array();
+	
+	//формируем массив курсов для менеджеров среднего и начального звена, которые привязаны к учебным программам
+	for (hex_id_nsr in courses_hex_id_nsr) {
+		 _program_course_nsr = OpenDoc(UrlFromDocID(hex_id_nsr.education_method_id)).TopElem;
+		course_nsr = _program_course_nsr.course_id;
+		learning_program_nsr_array.push(course_nsr);
+	}
+
+
+	//формируем массив учебных программ для топ менеджеров, к которым привязан определённый курс
+	var courses_top = OpenDoc(UrlFromDocID(education_manager_top)).TopElem;
+	var courses_hex_id_top = courses_top.education_methods;
+	var learning_program_top_array = new Array();
+	
+	//формируем массив курсов для топ менеджеров, которые привязаны к учебным программам
+	for (hex_id_top in courses_hex_id_top) {
+		 _program_course_top = OpenDoc(UrlFromDocID(hex_id_top.education_method_id)).TopElem;
+		course_top = _program_course_top.course_id;
+		learning_program_top_array.push(course_top);
+	}
+
+
+	//формируем массив учебных программ для РГА, к которым привязан определённый курс
+	var courses_rga = OpenDoc(UrlFromDocID(education_rga)).TopElem;
+	var courses_hex_id_rga = courses_rga.education_methods;
+	var learning_program_rga_array = new Array();
+	
+	//формируем массив курсов для РГА, которые привязаны к учебным программам
+	for (hex_id_rga in courses_hex_id_rga) {
+		 _program_course_rga = OpenDoc(UrlFromDocID(hex_id_rga.education_method_id)).TopElem;
+		course_rga = _program_course_rga.course_id;
+		learning_program_rga_array.push(course_rga);
+	}
+
+
+	var query_perv = "for $elem in learnings where (";
+	var query_perv_tab = "for $elem in courses where (";
+
+	for (i = 0; i < ArrayCount(learning_program_perv_array); i++) {
+		if ( i == ArrayCount(learning_program_perv_array) - 1 ) {
+			query_perv += "$elem/course_id = " + learning_program_perv_array[i] + ") and $elem/state_id = 4 and person_id = ";
+			query_perv_tab += "$elem/id = " + learning_program_perv_array[i] + ")";
+		}
+		else {
+			query_perv += "$elem/course_id = " + learning_program_perv_array[i] + " or ";
+			query_perv_tab += "$elem/id = " + learning_program_perv_array[i] + " or ";
+		}
+	}
+
+	var query_zav = "for $elem in learnings where (";
+	var query_zav_tab = "for $elem in courses where (";
+
+	for (i = 0; i < ArrayCount(learning_program_zav_array); i++) {
+		if ( i == ArrayCount(learning_program_zav_array) - 1 ) {
+			query_zav += "$elem/course_id = " + learning_program_zav_array[i] + ") and $elem/state_id = 4 and person_id = ";
+			query_zav_tab += "$elem/id = " + learning_program_zav_array[i] + ")";
+		}
+		else {
+			query_zav += "$elem/course_id = " + learning_program_zav_array[i] + " or ";
+			query_zav_tab += "$elem/id = " + learning_program_zav_array[i] + " or ";
+		}
+	}
+
+	var query_ot = "for $elem in learnings where (";
+	var query_ot_tab = "for $elem in courses where (";
+
+	for (i = 0; i < ArrayCount(learning_program_ot_array); i++) {
+		if ( i == ArrayCount(learning_program_ot_array) - 1 ) {
+			query_ot += "$elem/course_id = " + learning_program_ot_array[i] + ") and $elem/state_id = 4 and person_id = ";
+			query_ot_tab += "$elem/id = " + learning_program_ot_array[i] + ")";
+		}
+		else {
+			query_ot += "$elem/course_id = " + learning_program_ot_array[i] + " or ";
+			query_ot_tab += "$elem/id = " + learning_program_ot_array[i] + " or ";
+		}
+	}
+
+////////////ОФИС
+	var query_all = "for $elem in learnings where (";
+	var query_all_tab = "for $elem in courses where (";
+
+	for (i = 0; i < ArrayCount(learning_program_all_array); i++) {
+		if ( i == ArrayCount(learning_program_all_array) - 1 ) {
+			query_all += "$elem/course_id = " + learning_program_all_array[i] + ") and $elem/state_id = 4 and person_id = ";
+			query_all_tab += "$elem/id = " + learning_program_all_array[i] + ")";
+		}
+		else {
+			query_all += "$elem/course_id = " + learning_program_all_array[i] + " or ";
+			query_all_tab += "$elem/id = " + learning_program_all_array[i] + " or ";
+		}
+	}
+
+	
+
+	var query_spec = "for $elem in learnings where (";
+	var query_spec_tab = "for $elem in courses where (";
+
+	for (i = 0; i < ArrayCount(learning_program_specialist_array); i++) {
+		if ( i == ArrayCount(learning_program_specialist_array) - 1 ) {
+			query_spec += "$elem/course_id = " + learning_program_specialist_array[i] + ") and $elem/state_id = 4 and person_id = ";
+			query_spec_tab += "$elem/id = " + learning_program_specialist_array[i] + ")";
+		}
+		else {
+			query_spec += "$elem/course_id = " + learning_program_specialist_array[i] + " or ";
+			query_spec_tab += "$elem/id = " + learning_program_specialist_array[i] + " or ";
+		}
+	}
+
+
+
+
+	var query_nsr = "for $elem in learnings where (";
+	var query_nsr_tab = "for $elem in courses where (";
+
+	for (i = 0; i < ArrayCount(learning_program_nsr_array); i++) {
+		if ( i == ArrayCount(learning_program_nsr_array) - 1 ) {
+			query_nsr += "$elem/course_id = " + learning_program_nsr_array[i] + ") and $elem/state_id = 4 and person_id = ";
+			query_nsr_tab += "$elem/id = " + learning_program_nsr_array[i] + ")";
+		}
+		else {
+			query_nsr += "$elem/course_id = " + learning_program_nsr_array[i] + " or ";
+			query_nsr_tab += "$elem/id = " + learning_program_nsr_array[i] + " or ";
+		}
+	}
+
+
+
+
+	var query_top = "for $elem in learnings where (";
+	var query_top_tab = "for $elem in courses where (";
+
+	for (i = 0; i < ArrayCount(learning_program_top_array); i++) {
+		if ( i == ArrayCount(learning_program_top_array) - 1 ) {
+			query_top += "$elem/course_id = " + learning_program_top_array[i] + ") and $elem/state_id = 4 and person_id = ";
+			query_top_tab += "$elem/id = " + learning_program_top_array[i] + ")";
+		}
+		else {
+			query_top += "$elem/course_id = " + learning_program_top_array[i] + " or ";
+			query_top_tab += "$elem/id = " + learning_program_top_array[i] + " or ";
+		}
+	}
+
+/////////////РГА
+	var query_rga = "for $elem in learnings where (";
+	var query_rga_tab = "for $elem in courses where (";
+
+	for (i = 0; i < ArrayCount(learning_program_rga_array); i++) {
+		if ( i == ArrayCount(learning_program_rga_array) - 1 ) {
+			query_rga += "$elem/course_id = " + learning_program_rga_array[i] + ") and $elem/state_id = 4 and person_id = ";
+			query_rga_tab += "$elem/id = " + learning_program_rga_array[i] + ")";
+		}
+		else {
+			query_rga += "$elem/course_id = " + learning_program_rga_array[i] + " or ";
+			query_rga_tab += "$elem/id = " + learning_program_rga_array[i] + " or ";
+		}
+	}
+
+///////////ТЕСТЫ ДЛЯ РОЗНИЦЫ
+	var query_test_welcome = "for $elem in test_learnings where $elem/assessment_id = " + srez_welcome + " and $elem/person_id = " + curUserID +" and $elem/state_id = 4 return $elem"; //зав перв от
+	var query_test_perv = "for $elem in test_learnings where $elem/assessment_id = " + ekz_perv + " and $elem/person_id = " + curUserID +" and $elem/state_id = 4 return $elem";
+	var query_test_zav = "for $elem in test_learnings where $elem/assessment_id = " + ekz_zav + " and $elem/person_id = " + curUserID +" and $elem/state_id = 4 return $elem";
+
+
+//curObject.id
+
+	whois = ArrayOptFirstElem(XQuery("for $elem in collaborators where $elem/id = '"+curUserID+"' return $elem"));
+	
+	array_to_result = new Array();
+	query_ttt = "";
+	proiden_link = "https://uc.maksavit.ru:8888/learning_proc?doc_id=&mode=learning_proc&object_id=";
+	neproiden_link = "https://uc.maksavit.ru:8888/_wt/";
+	if (whois.org_id != 6712812633561910528) {
+		if (whois.position_name == "Оператор-таксировщик" || whois.position_name == "Оператор-таксировщик - стажер") {
+			query_ttt = XQuery(query_ot_tab + ' return $elem');
+			for (course_tab in query_ttt) {
+				obj_c = new Object();
+				obj_c.name = course_tab.name;
+				is_done = ArrayCount(XQuery("for $elem in learnings where $elem/course_id = " + course_tab.id + " and $elem/person_id = " + curUserID + " and $elem/state_id = 4 return $elem"));
+				status = "";
+				obj_c.id = course_tab.id;
+				obj_c.link = neproiden_link;
+				if (is_done > 0) { status = "Пройден"; obj_c.id = ArrayOptFirstElem(XQuery("for $elem in learnings where $elem/course_id = " + course_tab.id + " and $elem/person_id = " + curUserID + " and $elem/state_id = 4 return $elem")).id; obj_c.link = proiden_link; } else { status = "Не пройден"; }
+				obj_c.status = status;			
+				array_to_result.push(obj_c);
+			}
+		}
+		else if (whois.position_name == "Фармацевт-стажер" || whois.position_name == "Фармацевт" || whois.position_name == "Провизор" || whois.position_name == "Провизор-стажер" || whois.position_name == "Кассир" || whois.position_name == "Старший кассир" || whois.position_name == "Кассир-стажер") { 
+			query_ttt = XQuery(query_perv_tab + ' return $elem');
+			for (course_tab in query_ttt) {
+				obj_c = new Object();
+				obj_c.name = course_tab.name;
+				is_done = ArrayCount(XQuery("for $elem in learnings where $elem/course_id = " + course_tab.id + " and $elem/person_id = " + curUserID + " and $elem/state_id = 4 return $elem"));
+				status = "";
+				obj_c.id = course_tab.id;
+				obj_c.link = neproiden_link;
+				if (is_done > 0) { status = "Пройден"; obj_c.id = ArrayOptFirstElem(XQuery("for $elem in learnings where $elem/course_id = " + course_tab.id + " and $elem/person_id = " + curUserID + " and $elem/state_id = 4 return $elem")).id; obj_c.link = proiden_link; } else { status = "Не пройден"; }
+				obj_c.status = status;			
+				array_to_result.push(obj_c);
+			}
+		}
+		else if (whois.position_name == "Заведующий аптекой" || whois.position_name == "Заведующая аптекой" || whois.position_name == "Заведующий аптечным пунктом" || whois.position_name == "Заместитель заведующей аптечным пунктом" || whois.position_name == "Заведующая аптечным пунктом - стажер" || whois.position_name == "Заведующая аптечным пунктом" || whois.position_name == "Заведующий аптечным пунктом - стажер") {
+			query_ttt = XQuery(query_zav_tab + ' return $elem');
+			for (course_tab in query_ttt) {
+				obj_c = new Object();
+				obj_c.name = course_tab.name;
+				is_done = ArrayCount(XQuery("for $elem in learnings where $elem/course_id = " + course_tab.id + " and $elem/person_id = " + curUserID + " and $elem/state_id = 4 return $elem"));
+				status = "";
+				obj_c.id = course_tab.id;
+				obj_c.link = neproiden_link;
+				if (is_done > 0) { status = "Пройден"; obj_c.id = ArrayOptFirstElem(XQuery("for $elem in learnings where $elem/course_id = " + course_tab.id + " and $elem/person_id = " + curUserID + " and $elem/state_id = 4 return $elem")).id; obj_c.link = proiden_link; } else { status = "Не пройден"; }
+				obj_c.status = status;			
+				array_to_result.push(obj_c);
+			}
+		}
+		else if (whois.position_name == "Руководитель группы аптек" || whois.position_name == "Руководитель группы аптек Север") {
+			query_ttt = XQuery(query_rga_tab + ' return $elem');
+			for (course_tab in query_ttt) {
+				obj_c = new Object();
+				obj_c.name = course_tab.name;
+				is_done = ArrayCount(XQuery("for $elem in learnings where $elem/course_id = " + course_tab.id + " and $elem/person_id = " + curUserID + " and $elem/state_id = 4 return $elem"));
+				status = "";
+				obj_c.id = course_tab.id;
+				obj_c.link = neproiden_link;
+				if (is_done > 0) { status = "Пройден"; obj_c.id = ArrayOptFirstElem(XQuery("for $elem in learnings where $elem/course_id = " + course_tab.id + " and $elem/person_id = " + curUserID + " and $elem/state_id = 4 return $elem")).id; obj_c.link = proiden_link; } else { status = "Не пройден"; }
+				obj_c.status = status;			
+				array_to_result.push(obj_c);
+			}
+		}
+	}
+	else if (whois.org_id == 6712812633561910528 && whois.position_parent_name !='Отдел клиентского сервиса' && whois.position_parent_name !='Подразделение по контролю качества') {
+			col_doc = OpenDoc(UrlFromDocID(curUserID)).TopElem;	
+			grade = col_doc.custom_elems.ObtainChildByKey('data_grade').value;
+
+			if (grade == 'Специалист') {
+				query_ttt = ArrayUnion( XQuery(query_spec_tab + ' return $elem'), XQuery(query_all_tab + ' return $elem') );
+
+				for (course_tab in query_ttt) {
+					obj_c = new Object();
+					obj_c.name = course_tab.name;
+					is_done = ArrayCount(XQuery("for $elem in learnings where $elem/course_id = " + course_tab.id + " and $elem/person_id = " + curUserID + " and $elem/state_id = 4 return $elem"));
+					status = "";
+					obj_c.id = course_tab.id;
+					obj_c.link = neproiden_link;
+					if (is_done > 0) { status = "Пройден"; obj_c.id = ArrayOptFirstElem(XQuery("for $elem in learnings where $elem/course_id = " + course_tab.id + " and $elem/person_id = " + curUserID + " and $elem/state_id = 4 return $elem")).id; obj_c.link = proiden_link; } else { status = "Не пройден"; }
+					obj_c.status = status;			
+					array_to_result.push(obj_c);
+				}
+			}
+			if (grade == 'Менеджер начального звена' || grade == 'Менеджер среднего звена') {
+				query_ttt = ArrayUnion( XQuery(query_nsr_tab + ' return $elem'), XQuery(query_all_tab + ' return $elem') );
+				for (course_tab in query_ttt) {
+					obj_c = new Object();
+					obj_c.name = course_tab.name;
+					is_done = ArrayCount(XQuery("for $elem in learnings where $elem/course_id = " + course_tab.id + " and $elem/person_id = " + curUserID + " and $elem/state_id = 4 return $elem"));
+					status = "";
+					obj_c.id = course_tab.id;
+					obj_c.link = neproiden_link;
+					if (is_done > 0) { status = "Пройден"; obj_c.id = ArrayOptFirstElem(XQuery("for $elem in learnings where $elem/course_id = " + course_tab.id + " and $elem/person_id = " + curUserID + " and $elem/state_id = 4 return $elem")).id; obj_c.link = proiden_link; } else { status = "Не пройден"; }
+					obj_c.status = status;			
+					array_to_result.push(obj_c);
+				}
+			}
+			if (grade == 'Топ-менеджер') {
+				query_ttt = ArrayUnion( XQuery(query_top_tab + ' return $elem'), XQuery(query_all_tab + ' return $elem') );
+				for (course_tab in query_ttt) {
+					obj_c = new Object();
+					obj_c.name = course_tab.name;
+					is_done = ArrayCount(XQuery("for $elem in learnings where $elem/course_id = " + course_tab.id + " and $elem/person_id = " + curUserID + " and $elem/state_id = 4 return $elem"));
+					status = "";
+					obj_c.id = course_tab.id;
+					obj_c.link = neproiden_link;
+					if (is_done > 0) { status = "Пройден"; obj_c.id = ArrayOptFirstElem(XQuery("for $elem in learnings where $elem/course_id = " + course_tab.id + " and $elem/person_id = " + curUserID + " and $elem/state_id = 4 return $elem")).id; obj_c.link = proiden_link; } else { status = "Не пройден"; }
+					obj_c.status = status;			
+					array_to_result.push(obj_c);
+				}
+			}
+	}
+
+	RESULT = array_to_result;
+		
+}
+catch(ex) {
+	alert(ex.message);
+}
+
+%>
+
+<div style="display: flex; flex-direction: column; width: 100%;">
+<% for (elem in RESULT) { link_c = "<a href='" + elem.link + elem.id + "'>"; %> <%=link_c %>
+	<div style="display: flex; flex-direction: row; margin: 10px 0 10px 0; padding: 5px; width: 100%; background: rgba(0,0,0,.08); border-radius: 10px;">
+		<div style="width: 80%;"><p style="font-weight: 700; margin-left: 20px;"><%=elem.name %></p></div>
+		<div style="width: 20%;"><p style="margin-left: 20px;"><%=elem.status %></p></div>
+	</div></a>
+<% } %>
+</div>
